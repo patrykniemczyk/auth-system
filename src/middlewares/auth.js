@@ -2,6 +2,12 @@ import jwt from 'jsonwebtoken';
 import { isTokenRevoked } from '../services/revokedTokenService.js';
 import logger from '../utils/logger.js';
 
+/**
+ * Authenticates user token and checks for revocation
+ * @param {import('express').Request} req - Express request object
+ * @param {import('express').Response} res - Express response object
+ * @param {import('express').NextFunction} next - Express next function
+ */
 export const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -24,6 +30,11 @@ export const authenticateToken = async (req, res, next) => {
   }
 };
 
+/**
+ * Authorizes user by role
+ * @param  {...string} roles - Allowed roles
+ * @returns {Function}
+ */
 export const authorizeRoles =
   (...roles) =>
   (req, res, next) => {

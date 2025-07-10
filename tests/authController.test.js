@@ -6,8 +6,9 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 describe('Auth Controller', () => {
+  // Use a username that is always <= 30 chars and alphanumeric
   const testUser = {
-    username: `testuser_${Date.now()}`,
+    username: `testuser${Date.now().toString().slice(-8)}`,
     password: 'TestPassword123!',
   };
   let refreshToken;
