@@ -10,14 +10,16 @@ export const authenticateToken = async (req, res, next) => {
     if (await isTokenRevoked(payload.jti)) return res.sendStatus(401);
     req.user = payload;
     next();
-  } catch (err) {
+  } catch {
     return res.sendStatus(401);
   }
 };
 
-export const authorizeRoles = (...roles) => (req, res, next) => {
-  if (!req.user || !roles.includes(req.user.role)) {
-    return res.sendStatus(403);
-  }
-  next();
-};
+export const authorizeRoles =
+  (...roles) =>
+  (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.sendStatus(403);
+    }
+    next();
+  };

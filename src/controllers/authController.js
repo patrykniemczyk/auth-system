@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
 import ms from "ms";
 import prisma from "../models/index.js";
-import { addRevokedToken } from "../services/revokedTokenService.js";
 
 const register = async (req, res) => {
   const { username, password } = req.body;
