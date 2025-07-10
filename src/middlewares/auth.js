@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken";
-import { isTokenRevoked } from "../services/revokedTokenService.js";
+import jwt from 'jsonwebtoken';
+import { isTokenRevoked } from '../services/revokedTokenService.js';
 
 export const authenticateToken = async (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
   if (!token) return res.sendStatus(401);
   try {
     const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);

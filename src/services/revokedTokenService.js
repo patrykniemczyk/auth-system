@@ -1,4 +1,4 @@
-import prisma from "../models/index.js";
+import prisma from '../models/index.js';
 
 export const addRevokedToken = async (jti, expiresAt) => {
   await prisma.revokedToken.create({

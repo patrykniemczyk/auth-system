@@ -1,2 +1,2 @@
-import ms from "ms";
+import ms from 'ms';
 export { ms };

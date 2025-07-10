@@ -69,14 +69,14 @@ A Node.js/Express.js authentication module using username-based login, JWTs with
 Import and use in your routes:
 
 ```js
-import { authenticateToken, authorizeRoles } from "./src/middlewares/auth.js";
+import { authenticateToken, authorizeRoles } from './src/middlewares/auth.js';
 
-app.get("/protected", authenticateToken, (req, res) => {
-  res.send("Protected!");
+app.get('/protected', authenticateToken, (req, res) => {
+  res.send('Protected!');
 });
 
-app.get("/admin", authenticateToken, authorizeRoles("admin"), (req, res) => {
-  res.send("Admin only!");
+app.get('/admin', authenticateToken, authorizeRoles('admin'), (req, res) => {
+  res.send('Admin only!');
 });
 ```
 
