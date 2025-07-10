@@ -3,6 +3,7 @@ import express from 'express';
 import authRoutes from './src/routes/authRoutes.js';
 import { generalLimiter } from './src/middlewares/rateLimiter.js';
 import cors from 'cors';
+import { startCleanupJobs } from './cleanupJobs.js';
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ export default app;
 
 const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'test') {
+  startCleanupJobs();
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
