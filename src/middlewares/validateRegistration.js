@@ -1,5 +1,9 @@
 import { body, validationResult } from 'express-validator';
 
+/**
+ * Middleware to validate registration input
+ * @type {import('express').RequestHandler[]}
+ */
 export const validateRegistration = [
   body('username')
     .isLength({ min: 3, max: 30 })
@@ -9,9 +13,9 @@ export const validateRegistration = [
   body('password')
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/)
     .withMessage(
-      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
     ),
   (req, res, next) => {
     const errors = validationResult(req);

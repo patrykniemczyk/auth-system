@@ -14,11 +14,16 @@ const cleanupExpiredRefreshTokens = async () => {
       where: { expiresAt: { lt: new Date() } },
     });
     if (result.count > 0) logger.info('Cleaned up %d expired refresh tokens', result.count);
+  } catch (err) {
+    logger.error('Error during refresh token cleanup:', err);
   } finally {
     cleanupLock = false;
   }
 };
 
+/**
+ * Starts periodic cleanup jobs for expired tokens
+ */
 export function startCleanupJobs() {
   cleanupInterval = setInterval(
     async () => {
@@ -29,6 +34,9 @@ export function startCleanupJobs() {
   );
 }
 
+/**
+ * Stops periodic cleanup jobs
+ */
 export function stopCleanupJobs() {
   if (cleanupInterval) {
     clearInterval(cleanupInterval);

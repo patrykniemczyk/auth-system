@@ -1,5 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 
+/**
+ * Prisma client instance for DB access
+ * @type {import('@prisma/client').PrismaClient}
+ */
 const prisma = new PrismaClient({
   datasources: {
     db: {
@@ -11,7 +15,9 @@ const prisma = new PrismaClient({
 
 export default prisma;
 
-// Graceful shutdown helper for server.js
+/**
+ * Gracefully disconnects Prisma client
+ */
 export async function disconnectPrisma() {
   await prisma.$disconnect();
 }

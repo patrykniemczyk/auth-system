@@ -33,7 +33,7 @@ export const authenticateToken = async (req, res, next) => {
 /**
  * Authorizes user by role
  * @param  {...string} roles - Allowed roles
- * @returns {Function}
+ * @returns {import('express').RequestHandler}
  */
 export const authorizeRoles =
   (...roles) =>

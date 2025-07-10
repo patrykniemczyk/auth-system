@@ -84,7 +84,3 @@ app.get('/admin', authenticateToken, authorizeRoles('admin'), (req, res) => {
 
 - Adjust roles, token TTLs, or add new endpoints as needed.
 - See `/src/controllers/authController.js` for core logic.
-
-## License
-
-MIT

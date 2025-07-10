@@ -1,5 +1,11 @@
 import logger from '../utils/logger.js';
 
+/**
+ * Express error handler middleware
+ * @param {Error} err
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
 export const errorHandler = (err, req, res) => {
   logger.error('Unhandled error:', err);
   if (err.name === 'PrismaClientKnownRequestError') {
