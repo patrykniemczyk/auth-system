@@ -4,6 +4,7 @@ import authRoutes from './src/routes/authRoutes.js';
 import { generalLimiter } from './src/middlewares/rateLimiter.js';
 import cors from 'cors';
 import { startCleanupJobs } from './cleanupJobs.js';
+import logger from './src/utils/logger.js';
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,6 @@ const PORT = process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'test') {
   startCleanupJobs();
   app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    logger.info(`Server running on port ${PORT}`);
   });
 }
