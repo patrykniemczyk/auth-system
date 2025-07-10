@@ -1,3 +1,2 @@
-const ms = require("ms");
-
-exports.ms = ms;
+import ms from "ms";
+export { ms };

@@ -1,11 +1,11 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid");
-const ms = require("ms");
-const prisma = require("../models");
-const { addRevokedToken } = require("../services/revokedTokenService");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from "uuid";
+import ms from "ms";
+import prisma from "../models/index.js";
+import { addRevokedToken } from "../services/revokedTokenService.js";
 
-exports.register = async (req, res) => {
+const register = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: "Username and password required" });
@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
   res.status(201).json({ id: user.id, username: user.username });
 };
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   const { username, password } = req.body;
   const user = await prisma.user.findUnique({ where: { username } });
   if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
   res.json({ accessToken, refreshToken });
 };
 
-exports.refresh = async (req, res) => {
+const refresh = async (req, res) => {
   const { refreshToken } = req.body;
   if (!refreshToken)
     return res.status(400).json({ error: "Refresh token required" });
@@ -69,10 +69,17 @@ exports.refresh = async (req, res) => {
   res.json({ accessToken });
 };
 
-exports.logout = async (req, res) => {
+const logout = async (req, res) => {
   const { refreshToken } = req.body;
   if (!refreshToken)
     return res.status(400).json({ error: "Refresh token required" });
   await prisma.refreshToken.deleteMany({ where: { token: refreshToken } });
   res.json({ message: "Logged out" });
+};
+
+export default {
+  register,
+  login,
+  refresh,
+  logout,
 };

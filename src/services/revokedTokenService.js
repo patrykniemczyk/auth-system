@@ -1,17 +1,17 @@
-const prisma = require("../models");
+import prisma from "../models/index.js";
 
-exports.addRevokedToken = async (jti, expiresAt) => {
+export const addRevokedToken = async (jti, expiresAt) => {
   await prisma.revokedToken.create({
     data: { jti, expiresAt },
   });
 };
 
-exports.isTokenRevoked = async (jti) => {
+export const isTokenRevoked = async (jti) => {
   const token = await prisma.revokedToken.findUnique({ where: { jti } });
   return !!token;
 };
 
-exports.cleanupExpiredRevokedTokens = async () => {
+export const cleanupExpiredRevokedTokens = async () => {
   await prisma.revokedToken.deleteMany({
     where: { expiresAt: { lt: new Date() } },
   });
