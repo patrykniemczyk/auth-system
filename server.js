@@ -3,7 +3,7 @@ import express from 'express';
 import authRoutes from './src/routes/authRoutes.js';
 import { generalLimiter } from './src/middlewares/rateLimiter.js';
 import cors from 'cors';
-import { startCleanupJobs } from './cleanupJobs.js';
+import { startCleanupJobs } from './src/utils/cleanupJobs.js';
 import logger from './src/utils/logger.js';
 
 const app = express();

@@ -1,11 +1,13 @@
-import { cleanupExpiredRevokedTokens } from './src/services/revokedTokenService.js';
-import prisma from './src/models/index.js';
+import { cleanupExpiredRevokedTokens } from '../services/revokedTokenService.js';
+import prisma from '../models/index.js';
+import logger from '../utils/logger.js';
 
 // Clean up expired refresh tokens
 const cleanupExpiredRefreshTokens = async () => {
-  await prisma.refreshToken.deleteMany({
+  const result = await prisma.refreshToken.deleteMany({
     where: { expiresAt: { lt: new Date() } },
   });
+  if (result.count > 0) logger.info('Cleaned up %d expired refresh tokens', result.count);
 };
 
 export function startCleanupJobs() {
